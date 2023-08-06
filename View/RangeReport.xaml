@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyPlanogram.View.RangeReport"
+             Title="Range Report"
+             xmlns:controller="clr-namespace:MyPlanogram.Controller"
+             >
+    <ContentPage.BindingContext>
+        <controller:DepartmentListController/>
+    </ContentPage.BindingContext>
+    
+    <Grid RowDefinitions="50,50,*">
+        <Picker ItemsSource="{Binding Departments}" SelectedItem="{Binding SelectedDepartment}"/>
+        <SearchBar Grid.Row="1" Placeholder="Search by Item's Name or SKU" HorizontalOptions="FillAndExpand" Text="{Binding Search}"/>
+        <ListView Grid.Row="2" ItemsSource="{Binding RecordSource}" SelectedItem="{Binding SelectedRecord,Mode=TwoWay}" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Frame BackgroundColor="Transparent">
+                                <Grid ColumnDefinitions="*,70" RowDefinitions="30,30">
+                                    <Label Text="{Binding SKU,StringFormat=SKU: {0}}" TextColor="Black"/>
+                                    <Label Text="{Binding ItemName}" Grid.Row="1" TextColor="Black"/>
+                                    <ImageButton HorizontalOptions="Start" Aspect="AspectFill" WidthRequest="60" HeightRequest="50" Source="barcode.png" Command="{Binding Source={RelativeSource AncestorType={x:Type ListView}}, Path=BindingContext.OpenBarcodeListCMD}" CommandParameter="{Binding Source={RelativeSource Mode=Self}, Path=BindingContext}" Grid.Column="1" Grid.RowSpan="2"/>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>            
+        </ListView>
+    </Grid>
+</ContentPage>

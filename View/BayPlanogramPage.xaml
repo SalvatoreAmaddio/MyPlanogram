@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyPlanogram.View.BayPlanogramPage"
+             Title="Planogram"
+             xmlns:controller="clr-namespace:MyPlanogram.Controller"
+             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+             >
+    <ContentPage.BindingContext>
+        <controller:PlanogramListController/>
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="40,*" BackgroundColor="LightGray">
+        <Border StrokeThickness="1" BackgroundColor="LightGray" Stroke="Black">
+                <Label Text="{Binding SelectedRecord.Shelf.Bay}" HorizontalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="18" Padding="6"/>
+        </Border>
+        
+        <ListView x:Name="Lista" Grid.Row="1" 
+                  ItemsSource="{Binding Groups}" 
+                  SelectedItem="{Binding SelectedRecord}"
+                  HasUnevenRows="True" 
+                  IsGroupingEnabled="True"
+                  BackgroundColor="White"
+                  android:ListView.IsFastScrollEnabled="true"
+            >
+            <ListView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid BackgroundColor="LightGray" Padding="10">
+                       <Label Text="{Binding Shelf}"
+                       FontSize="18"
+                       FontAttributes="Bold" HorizontalOptions="Start"/>
+                            <Label Text="{Binding Notch}"
+                       FontSize="18"
+                       FontAttributes="Bold" HorizontalOptions="End"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.GroupHeaderTemplate>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid BackgroundColor="{Binding SelectedColor,Mode=TwoWay}">
+                            <Frame Grid.Row="0" BackgroundColor="Transparent" CornerRadius="5" Padding="5" BorderColor="Black">
+                                <Grid ColumnDefinitions="*,*">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="{Binding Item.ShowOffer}"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="{Binding ShowSubstitute}"/>
+                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="{Binding Item.ShowAdditionalInfo}"/>
+                                    </Grid.RowDefinitions>
+                                    
+                                        <Label Text="{Binding Item.ItemName}" FontAttributes="Bold" FontSize="18"/>
+                                        <Label Grid.Row="1" Text="{Binding Item.SKU, StringFormat='SKU: {0}'}" FontAttributes="Bold" FontSize="18"/>
+                                    <ImageButton Grid.Row="1" HeightRequest="30" Grid.ColumnSpan="2" HorizontalOptions="End" Source="questionmark.png" Clicked="ImageButton_Clicked"/>
+
+                                    <Label Grid.Row="2" Text="{Binding Item.Price,StringFormat='£ {0}'}" FontAttributes="Bold" FontSize="18"/>
+                                        <Label Grid.Row="3" IsVisible="{Binding Item.ShowOffer}" Text="{Binding Item.Offer}" FontAttributes="Bold" FontSize="18"/>
+                                        <Label Grid.Row="4" Text="{Binding Faces,StringFormat='Faces: {0}'}" FontSize="18" FontAttributes="Bold" />
+                                        <Label Grid.Row="5" Text="{Binding GetSubstitute}" FontSize="18" TextColor="Red" FontAttributes="Bold"/>
+
+                                    <Border Stroke="Black" StrokeThickness="2" Grid.Row="6" Margin="0,5,0,0" HorizontalOptions="Start" WidthRequest="60">
+                                        <ImageButton Source="barcode.png" Command="{Binding Source={RelativeSource AncestorType={x:Type ListView}}, Path=BindingContext.OpenBarcodeListCMD}" CommandParameter="{Binding Source={RelativeSource Mode=Self}, Path=BindingContext}"/>
+                                    </Border>
+
+                                    <HorizontalStackLayout Spacing="10" Grid.Row="7" Margin="0,5,0,0" HorizontalOptions="StartAndExpand">
+                                        <Label IsVisible="{Binding Item.ASRA}" Text="(ASRA)" VerticalTextAlignment="Center" FontAttributes="Bold" TextColor="Red" VerticalOptions="CenterAndExpand" ToolTipProperties.Text="To be sold ASAP"/>
+                                        <Image IsVisible="{Binding Item.IsBs}" Source="bestseller.svg" ToolTipProperties.Text="Best Seller"/>
+                                        <Image IsVisible="{Binding Item.ScheduleForChange}" Source="clock.svg" ToolTipProperties.Text="Schedule for a change"/>
+                                        <Image IsVisible="{Binding Item.Stop}" Source="stop.svg" ToolTipProperties.Text="Removed from sales. Do not display"/>
+                                    </HorizontalStackLayout>
+
+                                    <Image Grid.Column="1" Grid.RowSpan="8" Source="{Binding Item.PictureURL}"
+                                                Aspect="AspectFill"
+                                                HorizontalOptions="End"                                          
+                                                HeightRequest="150"
+                                                VerticalOptions="CenterAndExpand"
+                                                WidthRequest="150"
+                                           />
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

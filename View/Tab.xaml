@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyPlanogram.View.Tab"
+            xmlns:local="clr-namespace:MyPlanogram.View"
+            BackgroundColor="#3E8EED"
+            x:Name="MyShell"
+            >
+    
+    <Shell.FlyoutHeader>
+        <Grid HeightRequest="100" BackgroundColor="{StaticResource Blue100Accent}">
+            <Label Text="Welcome!" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="30" FontAttributes="Bold"/>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <Shell.FlyoutFooter>
+
+        <Grid RowDefinitions="*,*,*,*" BackgroundColor="{StaticResource Blue100Accent}" Padding="5">
+            <Grid.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="TextColor" Value="White"/>
+                    <Setter Property="Padding" Value="2"/>
+                </Style>
+            </Grid.Resources>
+
+            <Label Grid.Row="0" Text="MyPlanogram" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="18" FontAttributes="Bold"/>
+            <Label Grid.Row="1" Text="Developed By:" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="18" FontAttributes="Bold"/>
+            <Label Grid.Row="2" Text="Salvatore Amaddio R." HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="18" FontAttributes="Bold"/>
+            <Label Grid.Row="3" Text="Year: 2023" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" FontSize="18" FontAttributes="Bold"/>
+
+        </Grid>
+    </Shell.FlyoutFooter>
+
+    <Shell.TitleView>
+            <Label Text="{Binding Source={x:Reference MyShell}, Path=Title2,Mode=TwoWay}" VerticalTextAlignment="Center" TextColor="White" FontSize="20" FontAttributes="Bold"/>
+     </Shell.TitleView>
+
+    <FlyoutItem Route="Shell" Title="Items">
+        <Tab x:Name="MainTab" Title="Planogram" Route="Tab">
+            <ShellContent Title="Planogram" x:Name="Planogram" Route="Planogram">
+                <local:PlanogramPage/>
+            </ShellContent>
+
+            <ShellContent Title="Sections" Route="Sections">
+                <local:SectionPage Title="Sections"/>
+            </ShellContent>
+        </Tab>
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Store Plan">
+        <ShellContent>
+            <local:StorePlanViewer/>
+        </ShellContent>    
+    </FlyoutItem>
+    
+    <FlyoutItem Title="Range Report">
+        <ShellContent>
+            <local:RangeReport/>
+        </ShellContent>
+    </FlyoutItem>
+</Shell>

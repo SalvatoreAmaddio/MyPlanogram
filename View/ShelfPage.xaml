@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyPlanogram.View.ShelfPage"
+             Title="ShelfPage"
+             xmlns:controller="clr-namespace:MyPlanogram.Controller"
+             >
+
+    <ContentPage.BindingContext>
+        <controller:ShelfListController/>
+    </ContentPage.BindingContext>
+    
+    <Grid RowDefinitions="70,*,50">
+        <VerticalStackLayout BackgroundColor="LightGray" Padding="10">
+            <Label Text="{Binding Bay.BayNum,StringFormat='BAY {0}'}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="18" FontAttributes="Bold"/>
+            <Label Text="{Binding Bay.BayTitle,StringFormat='({0})'}" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="18" FontAttributes="Bold"/>
+        </VerticalStackLayout>
+        
+        <ListView Grid.Row="1" ItemsSource="{Binding RecordSource}" SelectedItem="{Binding SelectedRecord,Mode=TwoWay}" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Frame BackgroundColor="Transparent">
+                                <Grid ColumnDefinitions="*,*">
+                                    <Label Text="{Binding .}" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="18"/>
+                                    <Label Grid.Column="1" Text="{Binding NotchOrHook}" VerticalTextAlignment="Center" FontAttributes="Bold" FontSize="18" HorizontalOptions="End"/>
+                                </Grid>
+                            </Frame>                            
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <Button Grid.Row="2" Text="VIEW PLANOGRAM" Command="{Binding ViewPlanogramCMD}"/>
+    </Grid>
+</ContentPage>

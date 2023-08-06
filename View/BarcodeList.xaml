@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyPlanogram.View.BarcodeList"
+             Title="Barcode List"
+             xmlns:barcode="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+             xmlns:controller="clr-namespace:MyPlanogram.Controller"
+             >
+
+    <ContentPage.BindingContext>
+        <controller:BarcodeListController/>
+    </ContentPage.BindingContext>
+
+    <Grid RowDefinitions="30,30,*">
+        <Label Text="{Binding Record.Item.SKU, StringFormat='SKU: {0}'}" TextTransform="Uppercase" BackgroundColor="LightGray" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="Black" FontAttributes="Bold"/>
+        <Label Grid.Row="1" Text="{Binding Record.Item.ItemName}" TextTransform="Uppercase" BackgroundColor="LightGray" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="Black" FontAttributes="Bold"/>
+
+        <ListView ItemsSource="{Binding RecordSource}" Grid.Row="2" HasUnevenRows="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Frame CornerRadius="15" BorderColor="Black" BackgroundColor="Transparent">
+                                <Grid RowDefinitions="100,30">
+                                    <barcode:BarcodeGeneratorView Format="{Binding Format}" Value="{Binding Code}"/>
+                                    <Label Text="{Binding Code}" Grid.Row="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="Black"/>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>            
+        </ListView>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyPlanogram.View.BarcodeReader"
+             Title="BarcodeReader"
+             xmlns:barcode="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.MAUI.Controls"
+             xmlns:controller="clr-namespace:MyPlanogram.Controller"
+             >
+
+    <ContentPage.BindingContext>
+        <controller:BarcodeListController/>
+    </ContentPage.BindingContext>
+    
+    <Grid RowDefinitions="30,*">
+        <Label Text="{Binding Result}" VerticalTextAlignment="Center" Padding="5" TextColor="Black"/>
+
+        <barcode:CameraBarcodeReaderView x:Name="CodeReader" Grid.Row="1" 
+                                         IsDetecting="{Binding IsDetecting}"
+                                         BarcodesDetected="CameraBarcodeReaderView_BarcodesDetected"
+                                         >
+            
+        </barcode:CameraBarcodeReaderView>
+    </Grid>
+</ContentPage>

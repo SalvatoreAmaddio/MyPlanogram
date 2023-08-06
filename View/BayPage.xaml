@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyPlanogram.View.BayPage"
+             xmlns:controller="clr-namespace:MyPlanogram.Controller"
+             >
+    
+    <ContentPage.BindingContext>
+        <controller:BayListController/>
+    </ContentPage.BindingContext>
+
+    <Grid>
+        <ListView ItemsSource="{Binding RecordSource}" HasUnevenRows="True" SelectedItem="{Binding SelectedRecord,Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Frame CornerRadius="5" BorderColor="Black" BackgroundColor="Transparent">
+                                <Grid ColumnDefinitions="30,*">
+                                    <Label Text="{Binding BayNum,StringFormat='{0})'}" VerticalTextAlignment="Center" Padding="5" FontSize="18" FontAttributes="Bold"/>
+                                    <Label Grid.Column="1" Text="{Binding BayTitle}" FontSize="18" FontAttributes="Bold" VerticalTextAlignment="Center"/>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+</ContentPage>

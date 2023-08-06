@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyPlanogram.View.SectionPage"
+             Title="SectionPage"
+             xmlns:controller="clr-namespace:MyPlanogram.Controller"
+             >
+
+    <ContentPage.BindingContext>
+        <controller:SectionListController/>
+    </ContentPage.BindingContext>
+
+
+    <Grid RowDefinitions="50,0.1*,*" RowSpacing="-5">
+        <SearchBar Placeholder="Search..." 
+               Text="{Binding Search}" 
+               PlaceholderColor="Gray"
+               />
+        <Grid Grid.Row="1" ColumnDefinitions="*,*" BackgroundColor="LightGray">
+            <Label Text="SECTION" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Padding="5" FontSize="18" FontAttributes="Bold"/>
+            <Label Grid.Column="1" Text="LAST UPDATE ON" FontSize="18" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="End" Margin="0,0,10,0"/>
+        </Grid>
+
+        <ListView Grid.Row="2" 
+            ItemsSource="{Binding RecordSource}" HasUnevenRows="True" SelectedItem="{Binding SelectedRecord,Mode=TwoWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Frame CornerRadius="5" BorderColor="Black" BackgroundColor="Transparent">
+                                <Grid ColumnDefinitions="*,0.5*">
+                                    <Label Text="{Binding SectionName}" VerticalTextAlignment="Center" Padding="5" FontSize="18" FontAttributes="Bold"/>
+                                    <Label Grid.Column="1" Text="{Binding PlanoDate,StringFormat='({0:dd/MM/yy})'}" FontSize="18" FontAttributes="Bold" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</ContentPage>

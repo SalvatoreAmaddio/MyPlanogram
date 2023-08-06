@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyPlanogram.View.StorePlanViewer"
+             Title="StoreViewer"
+             xmlns:local="clr-namespace:MyPlanogram.View"
+             >
+    <StackLayout>
+        <ScrollView Orientation="Both" VerticalOptions="FillAndExpand">
+            <local:PinchToZoomContainer>
+                <Image x:Name="MyImg" Aspect="Fill"/>
+            </local:PinchToZoomContainer>
+        </ScrollView>
+    </StackLayout>
+</ContentPage>

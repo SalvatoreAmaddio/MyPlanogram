@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyPlanogram.View.Loading"
+             Title="Loading"
+             x:Name="LoadingScreen"
+             BackgroundColor="{StaticResource Blue100Accent}"
+             >
+
+    <Grid Padding="10" RowDefinitions="*,400,200">
+        <Label 
+            Text="MyPlanogram"
+            VerticalOptions="CenterAndExpand" 
+            HorizontalOptions="CenterAndExpand"
+            FontAttributes="Bold"
+            HorizontalTextAlignment="Center"
+            TextColor="White"
+            FontSize="50"
+            Grid.Row="0"
+            />
+        
+        <Frame Grid.Row="1" BackgroundColor="{StaticResource Blue100Accent}" BorderColor="Transparent">
+            <Image Source="planogram.png" Aspect="AspectFit"/>
+        </Frame>
+
+        <Frame Grid.Row="2" BackgroundColor="{StaticResource Blue100Accent}" VerticalOptions="EndAndExpand" CornerRadius="20" BorderColor="White">
+            <VerticalStackLayout VerticalOptions="EndAndExpand">
+                <Label 
+            Text="Developed By:"
+            VerticalOptions="EndAndExpand" 
+            HorizontalOptions="CenterAndExpand"
+            FontAttributes="Bold"
+            HorizontalTextAlignment="Center"
+            FontSize="20"
+            TextColor="White"
+            />
+
+                <Label 
+            Text="Salvatore Amaddio R."
+            VerticalOptions="StartAndExpand" 
+            HorizontalOptions="CenterAndExpand"
+            FontAttributes="Bold"
+            HorizontalTextAlignment="Center"
+            FontSize="20"
+            TextColor="White"
+            />
+
+                <Label 
+            Text="Year: 2023"
+            VerticalOptions="StartAndExpand" 
+            HorizontalOptions="CenterAndExpand"
+            FontAttributes="Bold"
+            HorizontalTextAlignment="Center"
+            FontSize="20"
+            TextColor="White"
+            Margin="0,0,0,10"
+            />
+                <Label x:Name="ProgressDetails" HorizontalTextAlignment="Center" VerticalTextAlignment="End" TextColor="White"/>
+                <ProgressBar VerticalOptions="EndAndExpand" x:Name="ProgressBar" ProgressColor="White"/>
+            </VerticalStackLayout>
+        </Frame>
+    </Grid>
+
+</ContentPage>
